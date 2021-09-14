@@ -130,8 +130,13 @@ namespace KKS_HFontFix
                     ( /*&& p2 == "MainManuNode(Clone)" &&*/ p3?.name == "SonyuCategory" /*&& p4 == "Viewport"*/ && p5?.name == "Sonyu")
                     ))
                 {
-                    if(tt.fontSize != 16)
+                    if (tt.fontSize != 16)
+                    {
+#if DEBUG
+                        Console.WriteLine($"+++++ {tt.name} {p1?.name} - {p2?.name} - {p3?.name} - {p4?.name} - {p5?.name} {tt.text}");
+#endif
                         tt.fontSize = 16;
+                    }
                 }
             }
 			catch (Exception e)
@@ -140,8 +145,8 @@ namespace KKS_HFontFix
 			}
 		}
 
-        [HarmonyPostfix, HarmonyPatch(typeof(TMPro.TextMeshPro), "Awake")]
-        private static void TMPro_TextMeshPro__Awake(TMPro.TextMeshPro __instance)
+        [HarmonyPostfix, HarmonyPatch(typeof(TMPro.TextMeshProUGUI), "Awake")]
+        private static void TMPro_TextMeshProUGUI___Awake(TMPro.TextMeshProUGUI __instance)
         {
             FixFontSize(__instance);
         }
